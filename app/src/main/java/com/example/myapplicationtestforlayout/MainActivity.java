@@ -1,11 +1,16 @@
 package com.example.myapplicationtestforlayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +22,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static float dollarrate = 7.6f;
+    public static float poundrate = 8.7f;
+    public static float japanrate = 22.0f;
+    public static final String TAG="MainActivity";
 //    View view;
 //    TextView output;
 //
@@ -208,19 +216,57 @@ public class MainActivity extends AppCompatActivity {
         if(inp.length()>0) {
             double x = Double.parseDouble(inp);
             if (plus.getId() == R.id.dollar) {
-                x = x * 7.6f;
+                x = x * dollarrate;
                 output.setText(String.valueOf(x));
             } else if (plus.getId() == R.id.pound) {
-                x = x * 8.7f;
+                x = x * poundrate;
                 output.setText(String.valueOf(x));
             } else if (plus.getId() == R.id.japan) {
-                x = x * 22;
+                x = x * japanrate;
                 output.setText(String.valueOf(x));
             }
         }else{
             output.setText("请输入金额");
             Toast.makeText(MainActivity.this, "请输入金额", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void edit(View edit){
+        openconfig();
+    }
+
+    private void openconfig(){
+        Intent config = new Intent(this,MainActivity2.class);
+        config.putExtra("dollarrate",dollarrate);
+        config.putExtra("poundrate",poundrate);
+        config.putExtra("japanrate",japanrate);
+        Log.i(TAG, "openconfig: dollarrate="+dollarrate);
+        startActivityForResult(config,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        if(requestCode==1 && resultCode==3){
+            dollarrate = data.getFloatExtra("dollarrate",0.0f);
+            poundrate = data.getFloatExtra("poundrate",0.0f);
+            japanrate = data.getFloatExtra("japanrate",0.0f);
+            Log.i(TAG, "onActivityResult: dollarrate="+dollarrate);
+        }
+        super.onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==R.id.item1){
+            openconfig();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

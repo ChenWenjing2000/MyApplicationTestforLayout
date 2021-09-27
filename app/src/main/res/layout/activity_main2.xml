@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,55 +13,46 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/money"
+            android:id="@+id/dollarrate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:inputType="number"
-            android:hint="input china money"
+            android:hint="dollarrate"
             android:minHeight="48dp" />
 
-        <TextView
-            android:id="@+id/changedmoney"
+        <EditText
+            android:id="@+id/poundrate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="hello" />
+            android:inputType="number"
+            android:hint="poundrate"
+            android:minHeight="48dp" />
 
-        <Button
-            android:id="@+id/dollar"
+        <EditText
+            android:id="@+id/japanrate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:text="dollar"
-            android:onClick="plus"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:hint="japanrate"
+            android:minHeight="48dp" />
 
         <Button
-            android:id="@+id/pound"
+            android:id="@+id/apply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:text="pound"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="plus"/>
-
-        <Button
-            android:id="@+id/japan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:text="japan"
-            android:onClick="plus"/>
-
-        <Button
-            android:id="@+id/edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:text="edit"
-            android:onClick="edit" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="apply"
+            android:onClick="plus2"/>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
