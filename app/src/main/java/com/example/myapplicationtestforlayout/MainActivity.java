@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
-
 //    RadioButton male;
 //    RadioButton female;
 //    TextView Result;
@@ -142,48 +142,86 @@ public class MainActivity extends AppCompatActivity {
 //                str += "肥胖";
 //            Result.setText(str);
 //        }
+
+//
+//    TextView sum2;
+//    TextView sum;
+//    int ss =0;
+//    int sss =0;
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.countmark);
+//        sum = findViewById(R.id.sum);
+//        sum2 = findViewById(R.id.sum2);
+//    }
+
+//    public void plus(View plus) {
+//        if(plus.getId() == R.id.plus1){
+//            ss = ss+1;
+//            sum.setText(String.valueOf(ss));
+//        }else if(plus.getId() == R.id.plus2){
+//            ss = ss+2;
+//            sum.setText(String.valueOf(ss));
+//        }else if(plus.getId() == R.id.plus3){
+//            ss = ss+3;
+//            sum.setText(String.valueOf(ss));
+//        }else if(plus.getId() == R.id.plus4){
+//            sss = sss+1;
+//            sum2.setText(String.valueOf(sss));
+//        }else if(plus.getId() == R.id.plus5){
+//            sss = sss+2;
+//            sum2.setText(String.valueOf(sss));
+//        }else if(plus.getId() == R.id.plus6){
+//            sss = sss+3;
+//            sum2.setText(String.valueOf(sss));
+//        }
+//    }
+//
+//    public void Reset(View v) {
+//        ss=0;
+//        sss=0;
+//        sum.setText(String.valueOf(ss));
+//        sum2.setText(String.valueOf(sss));
 //    }
 
 
 
-    TextView sum2;
-    TextView sum;
-    int ss =0;
-    int sss =0;
+
+
+
+
+
+
+    EditText input;
+    TextView output;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.countmark);
-        sum = findViewById(R.id.sum);
-        sum2 = findViewById(R.id.sum2);
+        setContentView(R.layout.moneychange);
+        input = findViewById(R.id.money);
+        output = findViewById(R.id.changedmoney);
     }
 
     public void plus(View plus) {
-     if(plus.getId() == R.id.plus1){
-         ss = ss+1;
-         sum.setText(String.valueOf(ss));
-     }else if(plus.getId() == R.id.plus2){
-         ss = ss+2;
-         sum.setText(String.valueOf(ss));
-     }else if(plus.getId() == R.id.plus3){
-         ss = ss+3;
-         sum.setText(String.valueOf(ss));
-     }else if(plus.getId() == R.id.plus4){
-         sss = sss+1;
-         sum2.setText(String.valueOf(sss));
-     }else if(plus.getId() == R.id.plus5){
-         sss = sss+2;
-         sum2.setText(String.valueOf(sss));
-     }else if(plus.getId() == R.id.plus6){
-         sss = sss+3;
-         sum2.setText(String.valueOf(sss));
-     }
+        String inp = input.getText().toString();
+        if(inp.length()>0) {
+            double x = Double.parseDouble(inp);
+            if (plus.getId() == R.id.dollar) {
+                x = x * 7.6f;
+                output.setText(String.valueOf(x));
+            } else if (plus.getId() == R.id.pound) {
+                x = x * 8.7f;
+                output.setText(String.valueOf(x));
+            } else if (plus.getId() == R.id.japan) {
+                x = x * 22;
+                output.setText(String.valueOf(x));
+            }
+        }else{
+            output.setText("请输入金额");
+            Toast.makeText(MainActivity.this, "请输入金额", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void Reset(View v) {
-        ss=0;
-        sss=0;
-        sum.setText(String.valueOf(ss));
-        sum2.setText(String.valueOf(sss));
-    }
 }
+
