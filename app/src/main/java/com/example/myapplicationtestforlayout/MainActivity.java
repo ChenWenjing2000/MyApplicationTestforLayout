@@ -5,9 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,14 +23,24 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Runnable{
     public static float dollarrate = 7.6f;
     public static float poundrate = 8.7f;
     public static float japanrate = 22.0f;
     public static final String TAG="MainActivity";
+
+    Handler handler;
 //    View view;
 //    TextView output;
 //
@@ -209,6 +224,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.moneychange);
         input = findViewById(R.id.money);
         output = findViewById(R.id.changedmoney);
+
+        SharedPreferences sp = getSharedPreferences("myrte", Activity.MODE_PRIVATE);
+        dollarrate = sp.getFloat("dollarrate",dollarrate);
+        poundrate = sp.getFloat("poundrate",poundrate);
+        japanrate = sp.getFloat("japanrate",japanrate);
+        Log.i(TAG, "plus: dollarrate"+dollarrate);
+
+        handler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                Log.i(TAG, "handleMessage: received");
+                if(msg.what == 6){
+                    String str = (String) msg.obj;
+                    Log.i(TAG, "handleMessage: str="+str);
+                }
+                super.handleMessage(msg);
+            }
+        };
+
+        //开启线程
+        Thread t = new Thread(this);
+        t.start();
     }
 
     public void plus(View plus) {
@@ -237,11 +274,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void openconfig(){
         Intent config = new Intent(this,MainActivity2.class);
+        //Bundle bdl =new Budle();
         config.putExtra("dollarrate",dollarrate);
         config.putExtra("poundrate",poundrate);
         config.putExtra("japanrate",japanrate);
         Log.i(TAG, "openconfig: dollarrate="+dollarrate);
-        startActivityForResult(config,1);
+        startActivityForResult(config,1); //打开可返回窗口
     }
 
     @Override
@@ -253,6 +291,14 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "onActivityResult: dollarrate="+dollarrate);
         }
         super.onActivityResult(requestCode,resultCode,data);
+
+        SharedPreferences sp = getSharedPreferences("myrte",Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putFloat("dollarrate",dollarrate);
+        editor.putFloat("poundrate",poundrate);
+        editor.putFloat("japanrate",japanrate);
+        editor.apply();
+
     }
 
     @Override
@@ -263,11 +309,54 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId()==R.id.item1){
+        if (item.getItemId()==R.id.setting){
             openconfig();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, "run: Thread");
+
+        //访问网络资源
+        URL url = null;
+        try {
+            url = new URL("http://www.baidu.com");
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+            InputStream in = http.getInputStream();
+            String html = inputStream2String(in);
+            Log.i(TAG, "run: html="+html);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //回主线程
+       Message msg = handler.obtainMessage();
+       msg.what = 6;
+       msg.obj = "hello";
+       handler.sendMessage(msg);
+    }
+
+    private String inputStream2String(InputStream inputStream) throws IOException {
+        final int bufferSize =1024;
+        final char[] buffer = new char[bufferSize];
+        final StringBuilder out = new StringBuilder();
+        Reader in = new InputStreamReader(inputStream,"gb2312");
+        while(true){
+            int rsz = in.read(buffer,0,buffer.length);
+            if(rsz<0)
+                break;
+            out.append(buffer,0,rsz);
+        }
+        return out.toString();
+    }
 }
 
