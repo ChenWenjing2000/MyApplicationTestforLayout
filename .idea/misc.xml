@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout-land/countmark.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main3.xml" value="0.12284701114488349" />
         <entry key="app/src/main/res/layout/bmi.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/countmark.xml" value="0.29857568714204" />
+        <entry key="app/src/main/res/layout/countmark.xml" value="0.25" />
         <entry key="app/src/main/res/layout/editmoneyrate.xml" value="0.31886477462437396" />
         <entry key="app/src/main/res/layout/moneychange.xml" value="0.335" />
         <entry key="app/src/main/res/layout/temperature.xml" value="0.25" />
