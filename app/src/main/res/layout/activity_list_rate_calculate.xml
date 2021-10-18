@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListRateCalculateActivity">
+
+    <TextView
+        android:id="@+id/ratecalculatetitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text=""
+        android:textSize="30sp"
+        android:textColor="@color/purple_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/ratecalculatedetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="请输入RMB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/purple_500"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@+id/ratecalculatetitle"/>
+
+    <TextView
+        android:id="@+id/rateresult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/purple_500"
+        app:layout_constraintTop_toBottomOf="@+id/ratecalculatedetail"/>
+
+    <Button
+        android:id="@+id/ratecalculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:inputType="number"
+        android:onClick="rateplus"
+        app:layout_constraintTop_toBottomOf="@+id/rateresult"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

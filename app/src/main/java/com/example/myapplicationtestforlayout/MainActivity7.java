@@ -14,6 +14,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity7 implements Runnable {
@@ -21,6 +22,7 @@ public class MainActivity7 implements Runnable {
     private static final String TAG = "MainActivity7";
     private Handler handler;
     List<String> rate = new ArrayList<String>();
+    ArrayList<HashMap<String,String>> listItems;
 
     @Override
     public void run() {
@@ -45,6 +47,9 @@ public class MainActivity7 implements Runnable {
             Elements tables = doc.getElementsByTag("table");
             Element table = tables.get(1);
             Elements tds = table.getElementsByTag("td");
+
+            listItems = new ArrayList<HashMap<String,String>>();
+
             for (int i = 0; i < tds.size(); i +=8) {
                 Element td1 = tds.get(i);
                 Element td2 = tds.get(i + 5);
@@ -53,6 +58,11 @@ public class MainActivity7 implements Runnable {
                 String str2 = td2.text();
                 rate.add(str1 + "==" + str2);
                 Log.i(TAG, "run: " + str1 + "==" + str2);
+
+                HashMap<String,String> map = new HashMap<String,String>();
+                map.put("ItemTitle",str1);
+                map.put("ItemDetail",str2);
+                listItems.add(map);
             }
 
 //            Log.i(TAG, "run:title=" + doc.title());
@@ -97,10 +107,13 @@ public class MainActivity7 implements Runnable {
         //回主线程
         Message msg = handler.obtainMessage(6, bundle);
         Message msg1 = handler.obtainMessage(7,rate);
+        Message msg2 = handler.obtainMessage(8,listItems);
         handler.sendMessage(msg);
         handler.sendMessage(msg1);
+        handler.sendMessage(msg2);
         Log.i(TAG, "run: bundle已发送");
         Log.i(TAG, "run: rate已发送");
+        Log.i(TAG, "run: listItems已发送");
 
     }
 

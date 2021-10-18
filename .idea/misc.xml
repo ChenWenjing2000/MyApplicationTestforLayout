@@ -4,14 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout-land/countmark.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_list_rate_calculate.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main3.xml" value="0.12284701114488349" />
         <entry key="app/src/main/res/layout/activity_main8_list.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_rate_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_rate_liat2.xml" value="0.12284701114488349" />
+        <entry key="app/src/main/res/layout/activity_rate_list.xml" value="0.125" />
         <entry key="app/src/main/res/layout/bmi.xml" value="0.25" />
         <entry key="app/src/main/res/layout/countmark.xml" value="0.25" />
         <entry key="app/src/main/res/layout/editmoneyrate.xml" value="0.31886477462437396" />
+        <entry key="app/src/main/res/layout/liat_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/moneychange.xml" value="0.335" />
         <entry key="app/src/main/res/layout/temperature.xml" value="0.25" />
         <entry key="app/src/main/res/menu/mymenu.xml" value="0.165" />

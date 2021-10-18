@@ -8,9 +8,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class RateListActivity extends AppCompatActivity{
         setContentView(R.layout.activity_rate_list);
         ListView listview = findViewById(R.id.rate_list);
 
+        ProgressBar progressBar = findViewById(R.id.progressBar);
         List<String> list1 = new ArrayList<String>();
 
         handler = new Handler(Looper.myLooper()){
@@ -38,10 +41,15 @@ public class RateListActivity extends AppCompatActivity{
                         list1.add("item"+i);
                     }
                     rate = (List<String>) msg.obj;
+
                     ListAdapter adapter = new ArrayAdapter<String>(RateListActivity.this, android.R.layout.simple_list_item_1,rate);
                     listview.setAdapter(adapter);
+
                     Log.i(TAG, "handleMessage: get rate");
                     Toast.makeText(RateListActivity.this,"数据已更新",Toast.LENGTH_SHORT).show();
+
+                    progressBar.setVisibility(View.GONE);
+                    listview.setVisibility(View.VISIBLE);
                 }
                 super.handleMessage(msg);
             }
