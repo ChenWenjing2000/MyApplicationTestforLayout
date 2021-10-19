@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MyApplicationTestforLayout"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ListRateCalculateActivity"
+            android:name=".ListRateCalculateActivity" android:theme="@style/Theme.AppCompat.DayNight.Dialog"
             android:exported="true" />
         <activity
             android:name=".RateLiat2Activity"
@@ -27,7 +27,8 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity7"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".MainActivity6"
             android:exported="true" />

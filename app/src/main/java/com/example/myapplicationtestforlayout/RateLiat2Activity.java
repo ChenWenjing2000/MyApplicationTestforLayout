@@ -1,8 +1,11 @@
 package com.example.myapplicationtestforlayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -23,11 +27,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class RateLiat2Activity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class RateLiat2Activity extends AppCompatActivity implements AdapterView.OnItemClickListener ,AdapterView.OnItemLongClickListener {
     Handler handler;
     private static String TAG = "RateLiat2Activity";
-    ArrayList<HashMap<String,String>> rate;
-    private ListView ratelist2;
+    ArrayList<Item> rate;
+    GridView ratelist2;
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class RateLiat2Activity extends AppCompatActivity implements AdapterView.
         setContentView(R.layout.activity_rate_liat2);
         ratelist2 = findViewById(R.id.ratelist2);
         ratelist2.setOnItemClickListener(this);
+        ratelist2.setOnItemLongClickListener(this);
         ProgressBar progressBar = findViewById(R.id.progressBar);
 
 //        ArrayList<HashMap<String,String>> listItems = new ArrayList<HashMap<String,String>>();
@@ -57,10 +63,11 @@ public class RateLiat2Activity extends AppCompatActivity implements AdapterView.
                 Log.i(TAG, "handleMessage: received");
                 if(msg.what == 8) {
 
-                    rate = (ArrayList<HashMap<String,String>>) msg.obj;
+                    rate = (ArrayList<Item>) msg.obj;
 
-                    MyAdapter adapter = new MyAdapter(RateLiat2Activity.this, android.R.layout.simple_list_item_1,rate);
+                    adapter = new MyAdapter(RateLiat2Activity.this, android.R.layout.simple_list_item_1,rate);
                     ratelist2.setAdapter(adapter);
+                    ratelist2.setEmptyView(findViewById(R.id.no_data));
 
                     Log.i(TAG, "handleMessage: get rate");
 
@@ -82,9 +89,9 @@ public class RateLiat2Activity extends AppCompatActivity implements AdapterView.
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Object itemAtPosition = ratelist2.getItemAtPosition(position);
-        HashMap<String,String> map = (HashMap<String, String>) itemAtPosition;
-        String titlestr = map.get("ItemTitle");
-        String detailstr = map.get("ItemDetail");
+        Item item = (Item) itemAtPosition;
+        String titlestr = item.getCname();
+        String detailstr = item.getCval();
         Log.i(TAG, "onItemClick: titlestr="+titlestr);
         Log.i(TAG, "onItemClick: detailstr="+detailstr);
 
@@ -99,6 +106,26 @@ public class RateLiat2Activity extends AppCompatActivity implements AdapterView.
         //Bundle bdl =new Budle();
         rate.putExtra("title",title2);
         rate.putExtra("detail",detail2);
-        startActivityForResult(rate,1); //打开可返回窗口
+        startActivity(rate); //打开可返回窗口
+    }
+
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+        Log.i(TAG, "onPointerCaptureChanged: 长按操作");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示")
+                .setMessage("请确认是否删除当前数据")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.i(TAG, "onClick: 对话框事件处理");
+                        rate.remove(ratelist2.getItemAtPosition(position));
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton("否",null);
+        builder.create().show();
+        return true;
     }
 }

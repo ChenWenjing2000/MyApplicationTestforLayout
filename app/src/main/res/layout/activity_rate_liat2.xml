@@ -6,10 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".RateLiat2Activity">
 
-    <ListView
+    <GridView
         android:id="@+id/ratelist2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:columnWidth="150dp"
+        android:numColumns="auto_fit"
+        />
+
+    <TextView
+        android:id="@+id/no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="no data"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ratelist2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ratelist2"
+        app:layout_constraintTop_toTopOf="@+id/ratelist2" />
 
     <ProgressBar
         android:id="@+id/progressBar"

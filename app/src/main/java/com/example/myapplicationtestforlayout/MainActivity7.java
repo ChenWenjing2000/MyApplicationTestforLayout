@@ -22,7 +22,7 @@ public class MainActivity7 implements Runnable {
     private static final String TAG = "MainActivity7";
     private Handler handler;
     List<String> rate = new ArrayList<String>();
-    ArrayList<HashMap<String,String>> listItems;
+    ArrayList<Item> listItems;
 
     @Override
     public void run() {
@@ -48,7 +48,7 @@ public class MainActivity7 implements Runnable {
             Element table = tables.get(1);
             Elements tds = table.getElementsByTag("td");
 
-            listItems = new ArrayList<HashMap<String,String>>();
+            listItems = new ArrayList<Item>();
 
             for (int i = 0; i < tds.size(); i +=8) {
                 Element td1 = tds.get(i);
@@ -59,10 +59,8 @@ public class MainActivity7 implements Runnable {
                 rate.add(str1 + "==" + str2);
                 Log.i(TAG, "run: " + str1 + "==" + str2);
 
-                HashMap<String,String> map = new HashMap<String,String>();
-                map.put("ItemTitle",str1);
-                map.put("ItemDetail",str2);
-                listItems.add(map);
+                Item item = new Item(str1,str2);
+                listItems.add(item);
             }
 
 //            Log.i(TAG, "run:title=" + doc.title());
