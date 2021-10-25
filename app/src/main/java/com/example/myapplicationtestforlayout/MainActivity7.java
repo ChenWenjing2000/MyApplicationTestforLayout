@@ -118,4 +118,5 @@ public class MainActivity7 implements Runnable {
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
+
 }
