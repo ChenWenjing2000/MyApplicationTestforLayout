@@ -1,4 +1,7 @@
-# MyApplicationTestforLayout
+## MyApplicationTestforLayout
+## 作者：陈文婧
+## 学号：41810027
+
 ## Introduction
 MyApplicationTestforLayout is a Calculator counting score for Team1&Team2 simultaneously.
 ## Author
