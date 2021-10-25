@@ -67,6 +67,7 @@ public class RateLiat2Activity extends AppCompatActivity implements AdapterView.
 
                     adapter = new MyAdapter(RateLiat2Activity.this, android.R.layout.simple_list_item_1,rate);
                     ratelist2.setAdapter(adapter);
+
                     ratelist2.setEmptyView(findViewById(R.id.no_data));
 
                     Log.i(TAG, "handleMessage: get rate");
